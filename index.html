@@ -4,261 +4,162 @@
   <meta charset="UTF-8">
   <title>PALAN HYPE AGENCY</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDUJO29WkSo6QVtntFVhMU5Arvm_RtO9jM",
+      authDomain: "palan-hype-d4aa1.firebaseapp.com",
+      projectId: "palan-hype-d4aa1",
+      storageBucket: "palan-hype-d4aa1.appspot.com",
+      messagingSenderId: "669513706542",
+      appId: "1:669513706542:web:099f536547ed84b128c3bf",
+      measurementId: "G-SLMGMQKBVT"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: linear-gradient(180deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%); color: #fff; font-family: Montserrat, Arial, sans-serif; position: relative; overflow-x: hidden; }
-    body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(34, 158, 217, 0.1) 0%, transparent 50%), radial-gradient(circle at 50% 80%, rgba(233, 75, 127, 0.08) 0%, transparent 60%); pointer-events: none; z-index: 1; animation: lights 8s ease-in-out infinite; }
-    @keyframes lights { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
-    .spotlight-left { position: fixed; bottom: -50%; left: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, transparent 70%); border-radius: 50%; animation: spotlight-left 15s infinite ease-in-out; pointer-events: none; z-index: 0; }
-    .spotlight-right { position: fixed; bottom: -50%; right: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(34, 158, 217, 0.15) 0%, transparent 70%); border-radius: 50%; animation: spotlight-right 15s infinite ease-in-out; pointer-events: none; z-index: 0; }
-    @keyframes spotlight-left { 0%, 100% { transform: translateY(50px); opacity: 0.6; } 50% { transform: translateY(-50px); opacity: 1; } }
-    @keyframes spotlight-right { 0%, 100% { transform: translateY(50px); opacity: 0.6; } 50% { transform: translateY(-50px); opacity: 1; } }
-    main::before { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 100px; background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%); pointer-events: none; }
-    main { position: relative; z-index: 10; }
-    .brandbar { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: rgba(35, 40, 70, 0.95); box-shadow: 0 2px 20px rgba(255, 215, 0, 0.2); position: sticky; top: 0; z-index: 100; border-bottom: 2px solid gold; }
-    .logo-left { color: gold; font-size: 0.9em; font-weight: bold; letter-spacing: 2px; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); cursor: pointer; }
-    .main-nav { display: flex; gap: 14px; flex-wrap: wrap; }
-    .main-nav button { background: none; border: none; color: #FFD700; font-weight: 700; font-size: 0.65em; cursor: pointer; transition: all .3s; padding: 4px 0; text-shadow: 0 0 5px rgba(255, 215, 0, 0.3); }
-    .main-nav button:hover { color: #0ebae9; transform: scale(1.1); }
-    .hero { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; background: linear-gradient(135deg, rgba(10, 14, 39, 0.9) 0%, rgba(26, 31, 58, 0.9) 50%, rgba(15, 20, 25, 0.9) 100%); position: relative; overflow: hidden; text-align: center; border-bottom: 3px solid gold; }
-    .hero::before { content: '🎤'; position: absolute; font-size: 20rem; opacity: 0.05; animation: float 8s ease-in-out infinite; z-index: 2; }
-    .hero::after { content: '🎧'; position: absolute; font-size: 20rem; opacity: 0.05; animation: float 8s ease-in-out infinite 2s; z-index: 2; }
-    @keyframes float { 0%, 100% { transform: translateY(0px) rotate(-5deg); } 50% { transform: translateY(-50px) rotate(5deg); } }
-    .hero h1 { font-size: 4em; color: gold; margin-bottom: 10px; z-index: 10; text-shadow: 0 0 30px rgba(255, 215, 0, 0.6), 0 8px 20px rgba(0, 0, 0, 0.8); letter-spacing: 2px; }
-    .hero p { font-size: 1.2em; color: #92edff; margin-bottom: 40px; z-index: 10; text-shadow: 0 0 20px rgba(146, 237, 255, 0.5); }
-    .hero-buttons { display: flex; gap: 20px; justify-content: center; z-index: 10; flex-wrap: wrap; }
-    .hero-btn { padding: 15px 40px; font-size: 1.1em; font-weight: bold; border: 2px solid; border-radius: 10px; cursor: pointer; transition: all 0.4s; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
-    .hero-btn.vedushie { background: gold; color: #232846; border-color: gold; }
-    .hero-btn.vedushie:hover { background: #FFE000; transform: scale(1.1); box-shadow: 0 0 40px rgba(255, 215, 0, 0.8); }
-    .hero-btn.dj { background: #229ed9; color: white; border-color: #17b8d9; }
-    .hero-btn.dj:hover { background: #17b8d9; transform: scale(1.1); box-shadow: 0 0 40px rgba(34, 158, 217, 0.8); }
-    .hero-btn.music { background: #E94B7F; color: white; border-color: #F05A8F; }
-    .hero-btn.music:hover { background: #F05A8F; transform: scale(1.1); box-shadow: 0 0 40px rgba(233, 75, 127, 0.8); }
-    .hero.hidden { display: none; }
-    h1 { color: gold; text-align: center; font-size: 0.85em; margin: 30px 0 20px 0; text-shadow: 0 0 20px rgba(255, 215, 0, 0.4); }
-    .cards { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; padding: 0 10px 60px 10px; }
-    .card { background: linear-gradient(135deg, rgba(50, 57, 92, 0.95) 0%, rgba(40, 47, 82, 0.95) 100%); border: 2px solid rgba(255, 215, 0, 0.3); border-radius: 14px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.1); padding: 12px 10px; width: 300px; display: flex; flex-direction: column; align-items: center; position: relative; transition: all 0.4s; }
-    .card:hover { transform: translateY(-10px); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 215, 0, 0.3); border-color: gold; }
-    .card img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 4px solid gold; margin-bottom: 8px; box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); }
-    .card h3 { color: gold; font-size: 0.92em; font-weight: bold; margin: 3px 0; text-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
-    .skills { color: #ff9500; margin-bottom: 4px; font-size: 0.78em; }
-    .desc { font-size: 0.74em; color: #bbb; text-align: center; margin-bottom: 6px; line-height: 1.3; }
-    .price { color: #92edff; font-weight: bold; margin-bottom: 5px; font-size: 0.82em; text-shadow: 0 0 10px rgba(146, 237, 255, 0.3); }
-    .contacts span { display: block; color: #FFD700; margin-bottom: 2px; font-size: 0.72em; }
-    .zayavka-btn, .pay-btn { background: gold; color: #23253a; border: none; border-radius: 7px; font-weight: bold; padding: 7px 16px; margin: 4px 3px; cursor: pointer; font-size: 0.76em; transition: all 0.3s; box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
-    .zayavka-btn:hover, .pay-btn:hover { background: #FFE000; transform: scale(1.05); box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
-    .vip-badge { background: gold; color: #232846; padding: 5px 16px; border-radius: 7px; font-weight: bold; position: absolute; top: 10px; left: 10px; font-size: 0.78em; box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); }
-    .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10, 10, 20, .96); z-index: 111; justify-content: center; align-items: center; overflow: auto; }
-    .modal.show { display: flex !important; }
-    .modal-content { background: linear-gradient(135deg, rgba(43, 50, 80, 0.98) 0%, rgba(33, 40, 70, 0.98) 100%); padding: 20px 16px; border-radius: 12px; max-width: 380px; min-width: 300px; margin: auto; color: white; box-shadow: 0 8px 40px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.2); max-height: 90vh; overflow-y: auto; border: 2px solid rgba(255, 215, 0, 0.2); }
-    .modal h2, .modal h3 { color: gold; margin-bottom: 10px; font-size: 0.93em; text-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
-    .modal p { font-size: 0.78em; margin: 6px 0; }
-    .modal input, .modal textarea, .modal select { width: 97%; margin: 6px 0 10px 0; padding: 9px 10px; border-radius: 6px; border: none; font-size: 0.82em; background: rgba(26, 42, 74, 0.8); color: #fff; border: 1px solid rgba(255, 215, 0, 0.2); }
-    .modal input[type="file"] { padding: 6px; color: #FFD700; }
-    .modal button, .modal a.button-link { width: 100%; margin: 8px 0 0 0; padding: 8px 16px; background: gold; color: #232846; font-weight: 700; border: none; border-radius: 8px; font-size: 0.78em; transition: all 0.3s; box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); cursor: pointer; }
-    .modal button:hover, .modal a.button-link:hover { background: #FFE000; transform: scale(1.02); box-shadow: 0 0 25px rgba(255, 215, 0, 0.6); }
-    .tab-buttons { display: flex; gap: 10px; margin-bottom: 16px; }
-    .tab-btn { flex: 1; padding: 8px 12px; background: rgba(26, 42, 74, 0.6); color: gold; border: 2px solid gold; border-radius: 7px; font-weight: bold; font-size: 0.8em; cursor: pointer; transition: all 0.3s; }
-    .tab-btn.active { background: gold; color: #232846; box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-    hr { border: none; border-top: 1px solid rgba(255, 215, 0, 0.3); margin: 10px 0; }
+    /* ...сюда вставь свой css-код или подключи styles.css... */
+    body { background: #140d29; color: #fff; font-family: Montserrat, Arial, sans-serif; }
+    /* для демо - простая минимальная стилизация */
+    input,button,select,textarea { margin: 6px 0; padding: 10px; border-radius:6px; border:none}
+    .modal-content { background: #242348; padding: 24px; border-radius: 10px; max-width: 340px; margin:auto; }
+    .modal { display: flex; justify-content: center; align-items: center; min-height: 100vh;}
+    .modal-content input { width:92%; }
+    .brandbar, .hero { padding: 24px 16px;}
+    .brandbar { display:flex; gap:12px; background:#201e35;}
+    .hero {text-align:center;}
+    .hero-buttons button{margin:0 16px;}
   </style>
 </head>
 <body>
-<div class="spotlight-left"></div>
-<div class="spotlight-right"></div>
-
 <header class="brandbar">
-  <span class="logo-left" onclick="goHome()">🎤 PALAN HYPE</span>
-  <nav class="main-nav">
-    <button onclick="showSection('vedushie')">🎤 Ведущие</button>
-    <button onclick="showSection('dj')">🎧 DJ</button>
-    <button onclick="showSection('music')">🎸 Музыканты</button>
-    <button onclick="showSection('reviews')">⭐ Отзывы</button>
-    <button onclick="showSection('contacts')">📞 Контакты</button>
-    <button onclick="openAuth()">👤 Кабинет</button>
-  </nav>
+  <span>🎤 PALAN HYPE</span>
+  <button onclick="openAuth()">Вход/Регистрация</button>
 </header>
-
-<div class="hero" id="hero">
-  <h1>🎤 PALAN HYPE AGENCY 🎧</h1>
+<div class="hero">
+  <h1>PALAN HYPE AGENCY</h1>
   <p>Найди идеального исполнителя для своего мероприятия</p>
   <div class="hero-buttons">
-    <button class="hero-btn vedushie" onclick="showSection('vedushie')">🎤 Ведущие</button>
-    <button class="hero-btn dj" onclick="showSection('dj')">🎧 DJ</button>
-    <button class="hero-btn music" onclick="showSection('music')">🎸 Музыканты</button>
+    <button>Ведущие</button>
+    <button>DJ</button>
+    <button>Музыканты</button>
   </div>
 </div>
 
-<main>
-  <section id="vedushie" style="display:none;">
-    <h1>🎤 Ведущие PALAN Agency</h1>
-    <div class="cards">
-      <div class="card">
-        <span class="vip-badge">VIP ⭐</span>
-        <img src="image.jpg" alt="Ольга Осипова">
-        <h3>Ольга Осипова</h3>
-        <div class="skills">MC, шоу, вокал, корпоративы, свадьбы</div>
-        <div class="desc">Эксклюзив. 5+ лет опыта. Индивидуальная программа, высокий рейтинг.</div>
-        <div class="price">от 20 000 ₽</div>
-        <div class="contacts">
-          <span>☎ 8 909 304 9440</span>
-          <span>✉ olga.fire@bk.ru</span>
-        </div>
-        <button class="zayavka-btn" onclick="openZayavka()">Заявка</button>
-        <button class="pay-btn" onclick="openPay()">Оплата</button>
-      </div>
-      <div class="card">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23555'/%3E%3C/svg%3E" alt="Дмитрий">
-        <h3>Дмитрий Шарап</h3>
-        <div class="skills">Свадьбы, корпоративы, радио</div>
-        <div class="desc">8+ лет опыта. Яркая программа.</div>
-        <div class="price">от 18 000 ₽</div>
-        <button class="zayavka-btn" onclick="openZayavka()">Заявка</button>
-        <button class="pay-btn" onclick="openPay()">Оплата</button>
-      </div>
-    </div>
-  </section>
-  
-  <section id="dj" style="display:none;">
-    <h1>🎧 DJ и ведущие музыки</h1>
-    <div class="cards">
-      <div class="card">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23444'/%3E%3C/svg%3E" alt="DJ">
-        <h3>DJ Alex</h3>
-        <div class="skills">Deep House, Pop, MC</div>
-        <div class="desc">Клубы, свадьбы, open-air. 10 лет на сцене.</div>
-        <div class="price">от 14 000 ₽</div>
-        <button class="zayavka-btn" onclick="openZayavka()">Заявка</button>
-        <button class="pay-btn" onclick="openPay()">Оплата</button>
-      </div>
-    </div>
-  </section>
-  
-  <section id="music" style="display:none;">
-    <h1>🎸 Музыканты и шоу</h1>
-    <div class="cards">
-      <div class="card">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23666'/%3E%3C/svg%3E" alt="Музыкант">
-        <h3>Антон Мелодин</h3>
-        <div class="skills">Гитара, вокал, кавер-бэнд</div>
-        <div class="desc">TOP-10 музыкантов. Живая музыка на любой вкус!</div>
-        <div class="price">от 10 000 ₽/час</div>
-        <button class="zayavka-btn" onclick="openZayavka()">Заявка</button>
-        <button class="pay-btn" onclick="openPay()">Оплата</button>
-      </div>
-    </div>
-  </section>
-  
-  <section id="reviews" style="display:none; padding: 40px 16px;">
-    <h1>⭐ Отзывы о PALAN Hype Agency</h1>
-    <div class="cards">
-      <div class="card" style="width: 100%; max-width: 600px;">
-        <p style="font-size:0.78em;">Все понравилось! Оперативно подобрали ведущего, всё прошло супер. Спасибо!<br><b>— Анастасия</b></p>
-      </div>
-      <div class="card" style="width: 100%; max-width: 600px;">
-        <p style="font-size:0.78em;">Крутые ребята, помогли организовать корпоратив за 2 дня. Спасибо!<br><b>— Дмитрий</b></p>
-      </div>
-    </div>
-  </section>
-  
-  <section id="contacts" style="display:none; padding: 40px 16px;">
-    <h1>📞 Контакты PALAN Hype Agency</h1>
-    <div class="cards">
-      <div class="card" style="width: 100%; max-width: 600px;">
-        <h3 style="margin-bottom: 20px;">Свяжись с нами:</h3>
-        <div style="margin: 15px 0;">
-          <p style="font-size:0.75em; color: #999; margin-bottom: 8px;">📧 Email:</p>
-          <a href="mailto:contact@palan-agency.ru" style="color: gold; font-weight: bold; text-decoration: none; font-size: 0.9em;">contact@palan-agency.ru</a>
-        </div>
-        <div style="margin: 15px 0;">
-          <p style="font-size:0.75em; color: #999; margin-bottom: 8px;">💬 Telegram Канал:</p>
-          <a href="https://t.me/RX7mBatogqBiMzA6ht" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #0088cc 0%, #0077b6 100%); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 0.9em; box-shadow: 0 0 15px rgba(0, 136, 204, 0.4);">🔗 Открыть Telegram</a>
-        </div>
-        <div style="margin: 15px 0;">
-          <p style="font-size:0.75em; color: #999; margin-bottom: 8px;">📱 Телефон:</p>
-          <a href="tel:+79093049440" style="color: gold; font-weight: bold; text-decoration: none; font-size: 0.9em;">+7 909 304 9440</a>
-        </div>
-      </div>
-    </div>
-  </section>
-</main>
-
-<div id="modal-auth" class="modal">
+<div id="modal-auth" class="modal" style="display:none;">
   <div class="modal-content">
-    <div class="tab-buttons">
-      <button class="tab-btn active" onclick="switchTab(event, 'client-tab')">👤 Клиент</button>
-      <button class="tab-btn" onclick="switchTab(event, 'artist-tab')">🎤 Исполнитель</button>
+    <div>
+      <button onclick="switchTab('client')">Клиент</button>
+      <button onclick="switchTab('artist')">Исполнитель</button>
     </div>
-    <div id="client-tab" class="tab-content active">
+    <div id="client-tab">
       <h2>Регистрация клиента</h2>
-      <input type="text" placeholder="Ваше имя" required>
-      <input type="email" placeholder="E-mail" required>
-      <input type="tel" placeholder="Телефон" required>
-      <input type="password" placeholder="Пароль" required>
-      <button onclick="alert('✓ Клиент зарегистрирован!')">Зарегистрироваться</button>
-      <hr>
-      <h3>Вход</h3>
-      <input type="email" placeholder="E-mail">
-      <input type="password" placeholder="Пароль">
-      <button onclick="alert('✓ Вход выполнен!')">Войти</button>
+      <input id="client-name" type="text" placeholder="Ваше имя">
+      <input id="client-email" type="email" placeholder="E-mail">
+      <input id="client-phone" type="tel" placeholder="Телефон">
+      <input id="client-password" type="password" placeholder="Пароль">
+      <button onclick="registerUser()">Зарегистрироваться</button>
+      <h3>Вход клиента</h3>
+      <input id="client-login-email" type="email" placeholder="E-mail">
+      <input id="client-login-password" type="password" placeholder="Пароль">
+      <button onclick="loginUser()">Войти</button>
     </div>
-    <div id="artist-tab" class="tab-content">
-      <h2>🎤 Регистрация исполнителя</h2>
-      <input type="text" placeholder="Имя/Псевдоним" id="artist-name" required>
-      <input type="email" placeholder="E-mail" id="artist-email" required>
-      <input type="tel" placeholder="Телефон" id="artist-phone" required>
-      <select id="artist-category" required>
-        <option value="">-- Выбери категорию --</option>
-        <option value="vedushiy">🎤 Ведущий (MC)</option>
-        <option value="dj">🎧 DJ</option>
-        <option value="musician">🎸 Музыкант</option>
+    <div id="artist-tab" style="display:none;">
+      <h2>Регистрация ведущего/артиста</h2>
+      <input id="artist-name" type="text" placeholder="Имя/Псевдоним">
+      <input id="artist-email" type="email" placeholder="E-mail">
+      <input id="artist-phone" type="tel" placeholder="Телефон">
+      <input id="artist-password" type="password" placeholder="Пароль">
+      <select id="artist-category">
+        <option value="">-- Категория --</option>
+        <option value="vedushiy">Ведущий (MC)</option>
+        <option value="dj">DJ</option>
+        <option value="musician">Музыкант</option>
       </select>
-      <textarea placeholder="О себе и опыте" id="artist-desc" rows="2" required></textarea>
-      <p style="font-size: 0.75em; margin: 8px 0 3px 0;"><b>📷 Фото:</b></p>
-      <input type="file" accept="image/*" id="photo-upload" onchange="previewFile(this)">
-      <div id="photo-preview" style="font-size: 0.7em; color: #999; margin: 3px 0;"></div>
-      <button onclick="registerArtist()">✓ Зарегистрироваться</button>
+      <textarea id="artist-desc" placeholder="О себе и опыте"></textarea>
+      <button onclick="registerArtist()">Зарегистрироваться</button>
+      <h3>Вход артиста</h3>
+      <input id="artist-login-email" type="email" placeholder="E-mail">
+      <input id="artist-login-password" type="password" placeholder="Пароль">
+      <button onclick="loginArtist()">Войти</button>
     </div>
-    <hr>
-    <button onclick="closeAuth()" style="background:#FFD700;color:#222;">Закрыть</button>
-  </div>
-</div>
-
-<div id="modal-zayavka" class="modal">
-  <form class="modal-content" onsubmit="alert('Заявка отправлена!'); closeZayavka(); return false;">
-    <h2>Оставить заявку</h2>
-    <input type="text" placeholder="Ваше имя" required>
-    <input type="tel" placeholder="Телефон" required>
-    <input type="email" placeholder="E-mail">
-    <textarea placeholder="Дата, пожелания..." rows="3" required></textarea>
-    <button type="submit">✓ Отправить</button>
-    <button type="button" onclick="closeZayavka()" style="background:#FFD700;color:#222;">Закрыть</button>
-  </form>
-</div>
-
-<div id="modal-pay" class="modal">
-  <div class="modal-content">
-    <h2>💳 Онлайн-оплата</h2>
-    <p>Оплата через Tinkoff</p>
-    <a href="https://www.tinkoff.ru/" target="_blank" style="background:gold;color:#232846;display:inline-block;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:bold;margin:15px 0; box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);">Перейти к оплате</a>
-    <button onclick="closePay()" style="background:#FFD700;color:#222;margin-top:15px;">Закрыть</button>
+    <button onclick="closeAuth()">❌ Закрыть</button>
   </div>
 </div>
 
 <script>
-function goHome() { document.getElementById('hero').classList.remove('hidden'); document.querySelectorAll('main section').forEach(s => s.style.display = 'none'); }
-function showSection(name) { document.getElementById('hero').classList.add('hidden'); document.querySelectorAll('main section').forEach(s => s.style.display = 'none'); document.getElementById(name).style.display = 'block'; }
-function switchTab(e, tabId) { document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active')); document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); document.getElementById(tabId).classList.add('active'); e.target.classList.add('active'); }
-function previewFile(input) { const file = input.files[0]; if (!file) return; const fileSize = (file.size / 1024 / 1024).toFixed(2) + ' MB'; const previewId = input.id.replace('-upload', '-preview'); document.getElementById(previewId).textContent = `✓ ${file.name} (${fileSize})`; document.getElementById(previewId).style.color = '#92edff'; }
-function registerArtist() { const name = document.getElementById('artist-name').value; if (!name) { alert('Заполни все поля!'); return; } alert(`✓ ${name} зарегистрирован!\nПрофиль появится после проверки.`); closeAuth(); }
-function openAuth() { document.getElementById('modal-auth').classList.add('show'); }
-function closeAuth() { document.getElementById('modal-auth').classList.remove('show'); }
-function openZayavka() { document.getElementById('modal-zayavka').classList.add('show'); }
-function closeZayavka() { document.getElementById('modal-zayavka').classList.remove('show'); }
-function openPay() { document.getElementById('modal-pay').classList.add('show'); }
-function closePay() { document.getElementById('modal-pay').classList.remove('show'); }
+function openAuth(){document.getElementById('modal-auth').style.display='flex';}
+function closeAuth(){document.getElementById('modal-auth').style.display='none';}
+function switchTab(tab){
+  document.getElementById('client-tab').style.display = (tab==='client')?'block':'none';
+  document.getElementById('artist-tab').style.display = (tab==='artist')?'block':'none';
+}
+
+// Регистрация клиента
+function registerUser() {
+  const name = document.getElementById('client-name').value;
+  const email = document.getElementById('client-email').value;
+  const phone = document.getElementById('client-phone').value;
+  const password = document.getElementById('client-password').value;
+  if(!name||!email||!phone||!password){ alert("Заполни все поля!"); return; }
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      const uid = userCredential.user.uid;
+      return firebase.database().ref('clients/' + uid).set({
+        type: 'client',
+        name: name,
+        email: email,
+        phone: phone
+      });
+    })
+    .then(()=>{ alert('Регистрация клиента прошла!'); closeAuth(); })
+    .catch(error => { alert('Ошибка: ' + error.message); });
+}
+
+// Вход клиента
+function loginUser() {
+  const email = document.getElementById('client-login-email').value;
+  const password = document.getElementById('client-login-password').value;
+  firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(() => { alert('Вход выполнен!'); closeAuth(); })
+    .catch((error) => {alert('Ошибка: '+error.message);});
+}
+
+// Регистрация исполнителя/артиста
+function registerArtist(){
+  const name = document.getElementById('artist-name').value;
+  const email = document.getElementById('artist-email').value;
+  const phone = document.getElementById('artist-phone').value;
+  const password = document.getElementById('artist-password').value;
+  const category = document.getElementById('artist-category').value;
+  const desc = document.getElementById('artist-desc').value;
+  if(!name||!email||!phone||!password||!category||!desc){alert('Заполни все поля!');return;}
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      const uid = userCredential.user.uid;
+      return firebase.database().ref('artists/' + uid).set({
+        type: category,
+        name: name,
+        email: email,
+        phone: phone,
+        desc: desc
+      });
+    })
+    .then(()=>{ alert('Артист зарегистрирован!'); closeAuth(); })
+    .catch(error => { alert('Ошибка: ' + error.message); });
+}
+
+// Вход артиста
+function loginArtist() {
+  const email = document.getElementById('artist-login-email').value;
+  const password = document.getElementById('artist-login-password').value;
+  firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(() => { alert('Вход исполнителя выполнен!'); closeAuth();})
+    .catch((error) => {alert('Ошибка: '+error.message);});
+}
 </script>
 </body>
 </html>
