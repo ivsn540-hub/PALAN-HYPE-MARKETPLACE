@@ -21,111 +21,41 @@
     firebase.initializeApp(firebaseConfig);
   </script>
   <style>
-   <script>
-function openAuth(){document.getElementById('modal-auth').classList.add('show');}
-function closeAuth(){document.getElementById('modal-auth').classList.remove('show');}
-function switchTab(e,tabId){
-  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById(tabId).classList.add('active'); e.target.classList.add('active');
-}
-
-function registerUser() {
-  const name = document.getElementById('client-name').value;
-  const email = document.getElementById('client-email').value;
-  const phone = document.getElementById('client-phone').value;
-  const password = document.getElementById('client-password').value;
-  if(!name||!email||!phone||!password){ alert("Заполни все поля!"); return; }
-  firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      const uid = userCredential.user.uid;
-      return firebase.database().ref('clients/' + uid).set({
-        type: 'client',
-        name: name,
-        email: email,
-        phone: phone
-      });
-    })
-    .then(()=>{ alert('Регистрация клиента прошла!'); closeAuth(); })
-    .catch(error => { alert('Ошибка: ' + error.message); });
-}
-
-function loginUser() {
-  const email = document.getElementById('client-login-email').value;
-  const password = document.getElementById('client-login-password').value;
-  firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(() => { alert('Вход выполнен!'); closeAuth(); })
-    .catch((error) => {alert('Ошибка: '+error.message);});
-}
-
-function registerArtist(){
-  const name = document.getElementById('artist-name').value;
-  const email = document.getElementById('artist-email').value;
-  const phone = document.getElementById('artist-phone').value;
-  const password = document.getElementById('artist-password').value;
-  const category = document.getElementById('artist-category').value;
-  const desc = document.getElementById('artist-desc').value;
-  if(!name||!email||!phone||!password||!category||!desc){alert('Заполни все поля!');return;}
-  firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      const uid = userCredential.user.uid;
-      return firebase.database().ref('artists/' + uid).set({
-        type: category,
-        name: name,
-        email: email,
-        phone: phone,
-        desc: desc
-      });
-    })
-    .then(()=>{ alert('Артист зарегистрирован!'); closeAuth(); })
-    .catch(error => { alert('Ошибка: ' + error.message); });
-}
-
-function loginArtist() {
-  const email = document.getElementById('artist-login-email').value;
-  const password = document.getElementById('artist-login-password').value;
-  firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(() => { alert('Вход исполнителя выполнен!'); closeAuth();})
-    .catch((error) => {alert('Ошибка: '+error.message);});
-}
-</script>
- body { background: linear-gradient(180deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
+    body { background: linear-gradient(180deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
       color: #fff; font-family: Montserrat, Arial, sans-serif; }
     header {
-      background: #181832; color: gold; padding: 16px 20px;
-      font-weight: bold; font-size: 1.1em; letter-spacing: 1px;
+      background: #181832; color: gold; padding: 18px 24px;
+      font-weight: bold; font-size: 1.3em; letter-spacing: 1px;
       display: flex; align-items: center; justify-content: space-between;
       border-bottom: 3px solid gold;
     }
     header span { font-size: 1.5em; text-shadow: 0 0 14px gold; }
     header button { background: gold; color: #232846; font-weight: bold;
-      border: none; border-radius: 8px; cursor: pointer; padding: 9px 26px; font-size: 1em;}
-    .hero { text-align: center; padding: 48px 12px;}
-    .hero h1 { font-size: 2.5em; margin-bottom: 16px; color: gold; text-shadow:0 0 14px #897323; }
-    .hero p { font-size: 1.25em; color: #92edff; margin-bottom: 34px;}
+      border: none; border-radius: 8px; cursor: pointer; padding: 10px 26px; font-size: 1em;}
+    .hero { text-align: center; padding: 64px 12px;}
+    .hero h1 { font-size: 2.6em; margin-bottom: 18px; color: gold;
+      text-shadow:0 0 20px #eebb14,0 0 70px #eebb14; }
+    .hero p { font-size: 1.3em; color: #77e9ff; margin-bottom: 40px;}
     .hero-buttons button {
-      background: #232846; color: gold; border: 2px solid gold; margin:10px; padding:12px 32px;
-      border-radius:12px; font-weight:bold; cursor:pointer; font-size:1.2em;}
+      background: transparent; color: gold; border: 2px solid gold; margin:10px 22px; padding:14px 36px;
+      border-radius:12px; font-weight:bold; cursor:pointer; font-size:1.25em; transition:.25s;
+      box-shadow:0 0 10px #ffd70088 inset;
+    }
     .hero-buttons button:hover { background: gold; color: #232846;}
     /* Модалка */
-    .modal { display:none; position:fixed; z-index:500; top:0;left:0;right:0;bottom:0; background:rgba(10,10,20,.97); justify-content:center; align-items:center;}
+    .modal { display:none; position:fixed; z-index:999; top:0; left:0; right:0; bottom:0; background:rgba(10,10,25,0.95); justify-content:center; align-items:center;}
     .modal.show { display: flex !important;}
-    .modal-content { background:#232846; padding: 28px 18px; border-radius: 14px; min-width: 320px; box-shadow:0 0 40px #333;}
-    .tab-buttons { display: flex; gap: 12px; margin-bottom: 14px;}
-    .tab-btn { flex: 1; padding: 9px 0; background: #232846; color: gold;
-      border: 2px solid gold; border-radius: 8px; font-weight: bold; cursor: pointer;}
+    .modal-content { background:#232846; padding:30px 20px; border-radius:16px; min-width:320px; margin:auto; box-shadow:0 0 46px #232846;}
+    .tab-buttons { display: flex; gap: 14px; margin-bottom: 16px;}
+    .tab-btn { flex: 1; padding: 10px 0; background: #232846; color: gold; border: 2px solid gold; border-radius: 9px; font-weight: bold;}
     .tab-btn.active { background: gold; color: #232846;}
-    .tab-content { display:none;}
-    .tab-content.active { display:block;}
     .modal-content input, .modal-content select, .modal-content textarea {
-      width:96%; margin:7px 0; padding:8px 8px; border-radius:7px; border:none; font-size:1em;
-      background: #292b44;
-      color: #ffd700;
+      width:96%; margin:9px 0; padding:8px 9px; border-radius:8px; border:none; font-size:1em; background: #292b44; color: #ffd700;
     }
-    .modal-content button { width:98%; margin:9px 0 6px 0; padding:9px 0; background: gold; color:#232846; font-weight:700; border:none; border-radius:8px; font-size:1em; cursor:pointer;}
-    .modal-content button:hover { background: #FFE353;}
-    hr {border: none; border-top: 1px solid #FFD700; margin: 12px 0;}
-    /* карточки и другие стили добавляй свои! */
+    .modal-content button { width:98%; margin:11px 0 8px 0; padding:11px 0; background: gold; color:#232846; font-weight:700; border:none; border-radius:8px; font-size:1em; cursor:pointer;}
+    .modal-content button:hover { background: #FFEF65;}
+    hr {border: none; border-top: 1px solid #FFD70044; margin: 13px 0;}
+    /* карточки и другие стили добавь свои! */
   </style>
 </head>
 <body>
@@ -137,39 +67,35 @@ function loginArtist() {
   <h1>PALAN HYPE AGENCY</h1>
   <p>Найди идеального исполнителя для своего мероприятия</p>
   <div class="hero-buttons">
-    <button>Ведущие</button>
-    <button>DJ</button>
-    <button>Музыканты</button>
+    <button onclick="alert('Показать ведущих');">Ведущие</button>
+    <button onclick="alert('Показать DJ');">DJ</button>
+    <button onclick="alert('Показать музыкантов');">Музыканты</button>
   </div>
 </div>
 
-<!-- Добавь здесь любые карточки и секции, которые у тебя были (пример:) -->
-<main>
-  <!-- Твой каталог, карточки исполнителей и любые дополнительные блоки -->
-</main>
+<!-- Здесь вставляй любые идеальные карточки, секции, отзывы, контакты и т.д. -->
 
-<!-- Модальное окно регистрации/входа -->
+<!-- Модалка -->
 <div id="modal-auth" class="modal">
   <div class="modal-content">
     <div class="tab-buttons">
-      <button class="tab-btn active" onclick="switchTab(event, 'client-tab')">👤 Клиент</button>
-      <button class="tab-btn" onclick="switchTab(event, 'artist-tab')">🎤 Исполнитель</button>
+      <button id="tab-client" class="tab-btn active" onclick="showTabAuth('client')">Клиент</button>
+      <button id="tab-artist" class="tab-btn" onclick="showTabAuth('artist')">Исполнитель</button>
     </div>
-    <div id="client-tab" class="tab-content active">
-      <h2>Регистрация клиента</h2>
+    <div id="auth-client" class="tab-content" style="display:block;">
+      <b>Регистрация клиента</b>
       <input id="client-name" type="text" placeholder="Ваше имя">
       <input id="client-email" type="email" placeholder="E-mail">
       <input id="client-phone" type="tel" placeholder="Телефон">
       <input id="client-password" type="password" placeholder="Пароль">
       <button onclick="registerUser()">Зарегистрироваться</button>
-      <hr>
-      <h3>Вход клиента</h3>
+      <div style="margin:14px 0 3px;font-weight:600;">Вход для клиента</div>
       <input id="client-login-email" type="email" placeholder="E-mail">
       <input id="client-login-password" type="password" placeholder="Пароль">
       <button onclick="loginUser()">Войти</button>
     </div>
-    <div id="artist-tab" class="tab-content">
-      <h2>Регистрация исполнителя</h2>
+    <div id="auth-artist" class="tab-content" style="display:none;">
+      <b>Регистрация исполнителя</b>
       <input id="artist-name" type="text" placeholder="Имя/Псевдоним">
       <input id="artist-email" type="email" placeholder="E-mail">
       <input id="artist-phone" type="tel" placeholder="Телефон">
@@ -182,26 +108,29 @@ function loginArtist() {
       </select>
       <textarea id="artist-desc" placeholder="О себе и опыте"></textarea>
       <button onclick="registerArtist()">Зарегистрироваться</button>
-      <hr>
-      <h3>Вход исполнителя</h3>
+      <div style="margin:14px 0 3px;font-weight:600;">Вход для исполнителя</div>
       <input id="artist-login-email" type="email" placeholder="E-mail">
       <input id="artist-login-password" type="password" placeholder="Пароль">
       <button onclick="loginArtist()">Войти</button>
     </div>
-    <button onclick="closeAuth()" style="background:#ffd700;color:#232846;margin-top:10px;">Закрыть</button>
+    <button onclick="closeAuth()" style="margin-top:13px;background:#ffd700;color:#232846;border-radius:8px;font-weight:bold;">Закрыть</button>
   </div>
 </div>
 
 <script>
-function openAuth(){document.getElementById('modal-auth').classList.add('show');}
-function closeAuth(){document.getElementById('modal-auth').classList.remove('show');}
-function switchTab(e,tabId){
-  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById(tabId).classList.add('active'); e.target.classList.add('active');
+function openAuth() {
+  document.getElementById('modal-auth').classList.add('show');
+  showTabAuth('client');
 }
-
-// Регистрация клиента
+function closeAuth() {
+  document.getElementById('modal-auth').classList.remove('show');
+}
+function showTabAuth(tab) {
+  document.getElementById('auth-client').style.display = tab === 'client' ? 'block' : 'none';
+  document.getElementById('auth-artist').style.display = tab === 'artist' ? 'block' : 'none';
+  document.getElementById('tab-client').classList.toggle('active', tab === 'client');
+  document.getElementById('tab-artist').classList.toggle('active', tab === 'artist');
+}
 function registerUser() {
   const name = document.getElementById('client-name').value;
   const email = document.getElementById('client-email').value;
@@ -221,7 +150,6 @@ function registerUser() {
     .then(()=>{ alert('Регистрация клиента прошла!'); closeAuth(); })
     .catch(error => { alert('Ошибка: ' + error.message); });
 }
-// Вход клиента
 function loginUser() {
   const email = document.getElementById('client-login-email').value;
   const password = document.getElementById('client-login-password').value;
@@ -229,7 +157,6 @@ function loginUser() {
     .then(() => { alert('Вход выполнен!'); closeAuth(); })
     .catch((error) => {alert('Ошибка: '+error.message);});
 }
-// Регистрация артиста
 function registerArtist(){
   const name = document.getElementById('artist-name').value;
   const email = document.getElementById('artist-email').value;
@@ -252,7 +179,6 @@ function registerArtist(){
     .then(()=>{ alert('Артист зарегистрирован!'); closeAuth(); })
     .catch(error => { alert('Ошибка: ' + error.message); });
 }
-// Вход артиста
 function loginArtist() {
   const email = document.getElementById('artist-login-email').value;
   const password = document.getElementById('artist-login-password').value;
