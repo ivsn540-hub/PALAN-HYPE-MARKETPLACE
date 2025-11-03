@@ -21,7 +21,75 @@
     firebase.initializeApp(firebaseConfig);
   </script>
   <style>
-    body { background: linear-gradient(180deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
+   <script>
+function openAuth(){document.getElementById('modal-auth').classList.add('show');}
+function closeAuth(){document.getElementById('modal-auth').classList.remove('show');}
+function switchTab(e,tabId){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active'); e.target.classList.add('active');
+}
+
+function registerUser() {
+  const name = document.getElementById('client-name').value;
+  const email = document.getElementById('client-email').value;
+  const phone = document.getElementById('client-phone').value;
+  const password = document.getElementById('client-password').value;
+  if(!name||!email||!phone||!password){ alert("Заполни все поля!"); return; }
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      const uid = userCredential.user.uid;
+      return firebase.database().ref('clients/' + uid).set({
+        type: 'client',
+        name: name,
+        email: email,
+        phone: phone
+      });
+    })
+    .then(()=>{ alert('Регистрация клиента прошла!'); closeAuth(); })
+    .catch(error => { alert('Ошибка: ' + error.message); });
+}
+
+function loginUser() {
+  const email = document.getElementById('client-login-email').value;
+  const password = document.getElementById('client-login-password').value;
+  firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(() => { alert('Вход выполнен!'); closeAuth(); })
+    .catch((error) => {alert('Ошибка: '+error.message);});
+}
+
+function registerArtist(){
+  const name = document.getElementById('artist-name').value;
+  const email = document.getElementById('artist-email').value;
+  const phone = document.getElementById('artist-phone').value;
+  const password = document.getElementById('artist-password').value;
+  const category = document.getElementById('artist-category').value;
+  const desc = document.getElementById('artist-desc').value;
+  if(!name||!email||!phone||!password||!category||!desc){alert('Заполни все поля!');return;}
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      const uid = userCredential.user.uid;
+      return firebase.database().ref('artists/' + uid).set({
+        type: category,
+        name: name,
+        email: email,
+        phone: phone,
+        desc: desc
+      });
+    })
+    .then(()=>{ alert('Артист зарегистрирован!'); closeAuth(); })
+    .catch(error => { alert('Ошибка: ' + error.message); });
+}
+
+function loginArtist() {
+  const email = document.getElementById('artist-login-email').value;
+  const password = document.getElementById('artist-login-password').value;
+  firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(() => { alert('Вход исполнителя выполнен!'); closeAuth();})
+    .catch((error) => {alert('Ошибка: '+error.message);});
+}
+</script>
+ body { background: linear-gradient(180deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
       color: #fff; font-family: Montserrat, Arial, sans-serif; }
     header {
       background: #181832; color: gold; padding: 16px 20px;
