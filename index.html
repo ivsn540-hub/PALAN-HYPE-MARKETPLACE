@@ -5,11 +5,64 @@
   <title>PALAN HYPE AGENCY</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    /* весь твой CSS, ни одна строка не убрана */
-    /* ... (всё что ты прислал выше, оставлено без изменений) ... */
-    /* ... (весь стиль, функционал, анимация, main, hero, секции, карточки...) ... */
+    /* ВСЕ твои стили! */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: linear-gradient(180deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%); color: #fff; font-family: Montserrat, Arial, sans-serif; position: relative; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(34, 158, 217, 0.1) 0%, transparent 50%), radial-gradient(circle at 50% 80%, rgba(233, 75, 127, 0.08) 0%, transparent 60%); pointer-events: none; z-index: 1; animation: lights 8s ease-in-out infinite; }
+    @keyframes lights { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+    .spotlight-left { position: fixed; bottom: -50%; left: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, transparent 70%); border-radius: 50%; animation: spotlight-left 15s infinite ease-in-out; pointer-events: none; z-index: 0; }
+    .spotlight-right { position: fixed; bottom: -50%; right: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(34, 158, 217, 0.15) 0%, transparent 70%); border-radius: 50%; animation: spotlight-right 15s infinite ease-in-out; pointer-events: none; z-index: 0; }
+    @keyframes spotlight-left { 0%, 100% { transform: translateY(50px); opacity: 0.6; } 50% { transform: translateY(-50px); opacity: 1; } }
+    @keyframes spotlight-right { 0%, 100% { transform: translateY(50px); opacity: 0.6; } 50% { transform: translateY(-50px); opacity: 1; } }
+    main::before { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 100px; background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%); pointer-events: none; }
+    main { position: relative; z-index: 10; }
+    .brandbar { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: rgba(35, 40, 70, 0.95); box-shadow: 0 2px 20px rgba(255, 215, 0, 0.2); position: sticky; top: 0; z-index: 100; border-bottom: 2px solid gold; }
+    .logo-left { color: gold; font-size: 0.9em; font-weight: bold; letter-spacing: 2px; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); cursor: pointer; }
+    .main-nav { display: flex; gap: 14px; flex-wrap: wrap; }
+    .main-nav button { background: none; border: none; color: #FFD700; font-weight: 700; font-size: 0.65em; cursor: pointer; transition: all .3s; padding: 4px 0; text-shadow: 0 0 5px rgba(255, 215, 0, 0.3); }
+    .main-nav button:hover { color: #0ebae9; transform: scale(1.1); }
+    .hero { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; background: linear-gradient(135deg, rgba(10, 14, 39, 0.9) 0%, rgba(26, 31, 58, 0.9) 50%, rgba(15, 20, 25, 0.9) 100%); position: relative; overflow: hidden; text-align: center; border-bottom: 3px solid gold; }
+    .hero::before { content: '🎤'; position: absolute; font-size: 20rem; opacity: 0.05; animation: float 8s ease-in-out infinite; z-index: 2; }
+    .hero::after { content: '🎧'; position: absolute; font-size: 20rem; opacity: 0.05; animation: float 8s ease-in-out infinite 2s; z-index: 2;}
+    @keyframes float { 0%, 100% { transform: translateY(0px) rotate(-5deg); } 50% { transform: translateY(-50px) rotate(5deg); } }
+    .hero h1 { font-size: 4em; color: gold; margin-bottom: 10px; z-index: 10; text-shadow: 0 0 30px rgba(255, 215, 0, 0.6), 0 8px 20px rgba(0, 0, 0, 0.8); letter-spacing: 2px; }
+    .hero p { font-size: 1.2em; color: #92edff; margin-bottom: 40px; z-index: 10; text-shadow: 0 0 20px rgba(146, 237, 255, 0.5); }
+    .hero-buttons { display: flex; gap: 20px; justify-content: center; z-index: 10; flex-wrap: wrap; }
+    .hero-btn { padding: 15px 40px; font-size: 1.1em; font-weight: bold; border: 2px solid; border-radius: 10px; cursor: pointer; transition: all 0.4s; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);}
+    .hero-btn.vedushie { background: gold; color: #232846; border-color: gold;}
+    .hero-btn.vedushie:hover { background: #FFE000; transform: scale(1.1); box-shadow: 0 0 40px rgba(255, 215, 0, 0.8);}
+    .hero-btn.dj { background: #229ed9; color: white; border-color: #17b8d9;}
+    .hero-btn.dj:hover { background: #17b8d9; transform: scale(1.1); box-shadow: 0 0 40px rgba(34, 158, 217, 0.8);}
+    .hero-btn.music { background: #E94B7F; color: white; border-color: #F05A8F;}
+    .hero-btn.music:hover { background: #F05A8F; transform: scale(1.1); box-shadow: 0 0 40px rgba(233, 75, 127, 0.8);}
+    .hero.hidden { display: none; }
+    h1 { color: gold; text-align: center; font-size: 0.85em; margin: 30px 0 20px 0; text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);}
+    .cards { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; padding: 0 10px 60px 10px;}
+    .card { background: linear-gradient(135deg, rgba(50, 57, 92, 0.95) 0%, rgba(40, 47, 82, 0.95) 100%); border: 2px solid rgba(255, 215, 0, 0.3); border-radius: 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 30px rgba(255,215,0,0.1); padding: 12px 10px; width: 300px; display: flex; flex-direction: column; align-items: center; position: relative; transition: all 0.4s;}
+    .card:hover { transform: translateY(-10px); box-shadow: 0 12px 40px rgba(0,0,0,0.7), 0 0 40px rgba(255,215,0,0.3); border-color: gold;}
+    .card img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 4px solid gold; margin-bottom: 8px; box-shadow: 0 0 20px rgba(255,215,0,0.4);}
+    .card h3 { color: gold; font-size: 0.92em; font-weight: bold; margin: 3px 0; text-shadow: 0 0 10px rgba(255,215,0,0.3);}
+    .skills { color: #ff9500; margin-bottom: 4px; font-size: 0.78em;}
+    .desc { font-size: 0.74em; color: #bbb; text-align: center; margin-bottom: 6px; line-height: 1.3;}
+    .price { color: #92edff; font-weight: bold; margin-bottom: 5px; font-size: 0.82em; text-shadow: 0 0 10px rgba(146,237,255,0.3);}
+    .contacts span { display: block; color: #FFD700; margin-bottom: 2px; font-size: 0.72em;}
+    .zayavka-btn, .pay-btn { background: gold; color: #23253a; border: none; border-radius: 7px; font-weight: bold; padding: 7px 16px; margin: 4px 3px; cursor: pointer; font-size: 0.76em; transition: all 0.3s; box-shadow: 0 0 10px rgba(255,215,0,0.3);}
+    .zayavka-btn:hover, .pay-btn:hover { background: #FFE000; transform: scale(1.05); box-shadow: 0 0 20px rgba(255,215,0,0.6);}
+    .vip-badge { background: gold; color: #232846; padding: 5px 16px; border-radius: 7px; font-weight: bold; position: absolute; top: 10px; left: 10px; font-size: 0.78em; box-shadow: 0 0 15px rgba(255,215,0,0.5);}
+    /* ---- modal ---- */
+    .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10,10,20,.96); z-index: 111; justify-content: center; align-items: center; overflow: auto; }
+    .modal.show { display: flex !important;}
+    .modal-content { background: linear-gradient(135deg, rgba(43,50,80,.98) 0%, rgba(33,40,70,.98) 100%); padding: 20px 16px; border-radius: 12px; max-width:380px; min-width:300px; margin:auto;color:white;box-shadow:0 8px 40px rgba(0,0,0,0.8),0 0 40px rgba(255,215,0,0.2);max-height:90vh;overflow-y:auto;border:2px solid rgba(255,215,0,0.2);}
+    .modal h2,.modal h3{color:gold;margin-bottom:10px;font-size:0.93em;text-shadow: 0 0 10px rgba(255,215,0,0.3);}
+    .modal p{font-size:0.78em;margin:6px 0;}
+    .modal input,.modal textarea,.modal select{width:97%;margin:6px 0 10px 0;padding:9px 10px;border-radius:6px;border:none;font-size:0.82em;background:rgba(26,42,74,0.8);color:#fff;border:1px solid rgba(255,215,0,0.2);}
+    .tab-buttons {display:flex;gap:10px;margin-bottom:16px;}
+    .tab-btn {flex:1;padding:8px 12px;background:rgba(26,42,74,0.6);color:gold;border:2px solid gold;border-radius:7px;font-weight:bold;font-size:0.8em;cursor:pointer;transition:all 0.3s;}
+    .tab-btn.active {background:gold; color:#232846; box-shadow:0 0 20px rgba(255,215,0,0.5);}
+    .tab-content {display:none;}
+    .tab-content.active {display:block;}
+    hr {border:none;border-top:1px solid rgba(255,215,0,0.3);margin:10px 0;}
   </style>
-  <!-- Firebase Classic SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
@@ -29,7 +82,6 @@
 <body>
 <div class="spotlight-left"></div>
 <div class="spotlight-right"></div>
-
 <header class="brandbar">
   <span class="logo-left" onclick="goHome()">🎤 PALAN HYPE</span>
   <nav class="main-nav">
@@ -41,7 +93,6 @@
     <button onclick="openAuth()">👤 Кабинет</button>
   </nav>
 </header>
-
 <div class="hero" id="hero">
   <h1>🎤 PALAN HYPE AGENCY 🎧</h1>
   <p>Найди идеального исполнителя для своего мероприятия</p>
@@ -51,13 +102,11 @@
     <button class="hero-btn music" onclick="showSection('music')">🎸 Музыканты</button>
   </div>
 </div>
-
 <main>
-  <!-- ВСЕ секции, карточки, отзывы, контакты — БЕЗ изменений -->
-  ... оставляй полностью твои каталоги, секции и блоки как есть ...
+  <!-- ВСЕ твои секции, карточки и блоки — оставлены без изменений! -->
+  ... (Оставь внутри main все свои sections, cards, reviews, contacts, zayavka, pay ...) ...
 </main>
-
-<!-- МОДАЛКА для входа, регистрации -->
+<!-- Модалка для авторизации и регистрации -->
 <div id="modal-auth" class="modal">
   <div class="modal-content">
     <div class="tab-buttons">
@@ -90,17 +139,19 @@
         <option value="musician">🎸 Музыкант</option>
       </select>
       <textarea id="artist-desc" placeholder="О себе и опыте" rows="2" required></textarea>
+      <button onclick="registerArtist()">✓ Зарегистрироваться</button>
+      <hr>
+      <h3>Вход</h3>
       <input type="email" id="artist-login-email" placeholder="E-mail">
       <input type="password" id="artist-login-password" placeholder="Пароль">
       <button onclick="loginArtist()">Войти</button>
-      <button onclick="registerArtist()">✓ Зарегистрироваться</button>
     </div>
-    <hr>
     <button onclick="closeAuth()" style="background:#FFD700;color:#222;">Закрыть</button>
   </div>
 </div>
+<!-- Твои остальные модальные окна заявки и оплаты -->
+<!-- ... (оставь остальные modal-заявка и modal-pay) ... -->
 
-<!-- Остальные твои модальные окна заявки/оплаты — оставляй как есть! -->
 
 <script>
 function goHome() { document.getElementById('hero').classList.remove('hidden'); document.querySelectorAll('main section').forEach(s => s.style.display = 'none'); }
@@ -113,8 +164,7 @@ function openZayavka() { document.getElementById('modal-zayavka').classList.add(
 function closeZayavka() { document.getElementById('modal-zayavka').classList.remove('show'); }
 function openPay() { document.getElementById('modal-pay').classList.add('show'); }
 function closePay() { document.getElementById('modal-pay').classList.remove('show'); }
-
-// ДОБАВЛЕННЫЕ Firebase-функции
+// Firebase - рабочая регистрация/вход
 function registerUser() {
   const name = document.getElementById('client-name').value;
   const email = document.getElementById('client-email').value;
@@ -122,24 +172,24 @@ function registerUser() {
   const password = document.getElementById('client-password').value;
   if(!name||!email||!phone||!password){ alert("Заполни все поля!"); return; }
   firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then(userCredential => {
-      const uid = userCredential.user.uid;
-      return firebase.database().ref('clients/' + uid).set({
-        type: 'client',
-        name: name,
-        email: email,
-        phone: phone
-      });
-    })
-    .then(()=>{ alert('✓ Клиент зарегистрирован!'); closeAuth(); })
-    .catch(error => { alert('Ошибка: ' + error.message); });
+      .then(userCredential => {
+        const uid = userCredential.user.uid;
+        return firebase.database().ref('clients/' + uid).set({
+          type: 'client',
+          name: name,
+          email: email,
+          phone: phone
+        });
+      })
+      .then(()=>{ alert('✓ Клиент зарегистрирован!'); closeAuth(); })
+      .catch(error => { alert('Ошибка: ' + error.message); });
 }
 function loginUser() {
   const email = document.getElementById('client-login-email').value;
   const password = document.getElementById('client-login-password').value;
   firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(()=>{ alert('✓ Вход выполнен!'); closeAuth(); })
-    .catch(error => { alert('Ошибка: ' + error.message); });
+      .then(()=>{ alert('✓ Вход выполнен!'); closeAuth(); })
+      .catch(error => { alert('Ошибка: ' + error.message); });
 }
 function registerArtist() {
   const name = document.getElementById('artist-name').value;
@@ -150,25 +200,25 @@ function registerArtist() {
   const desc = document.getElementById('artist-desc').value;
   if(!name||!email||!phone||!password||!category||!desc) { alert('Заполни все поля!'); return; }
   firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then(userCredential => {
-      const uid = userCredential.user.uid;
-      return firebase.database().ref('artists/' + uid).set({
-        type: category,
-        name: name,
-        email: email,
-        phone: phone,
-        desc: desc
-      });
-    })
-    .then(()=>{ alert('✓ Артист зарегистрирован!'); closeAuth(); })
-    .catch(error => { alert('Ошибка: ' + error.message); });
+      .then(userCredential => {
+        const uid = userCredential.user.uid;
+        return firebase.database().ref('artists/' + uid).set({
+          type: category,
+          name: name,
+          email: email,
+          phone: phone,
+          desc: desc
+        });
+      })
+      .then(()=>{ alert('✓ Артист зарегистрирован!'); closeAuth(); })
+      .catch(error => { alert('Ошибка: ' + error.message); });
 }
 function loginArtist() {
   const email = document.getElementById('artist-login-email').value;
   const password = document.getElementById('artist-login-password').value;
   firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(()=>{ alert('✓ Вход исполнителя выполнен!'); closeAuth(); })
-    .catch(error => { alert('Ошибка: ' + error.message); });
+      .then(()=>{ alert('✓ Вход исполнителя выполнен!'); closeAuth(); })
+      .catch(error => { alert('Ошибка: ' + error.message); });
 }
 </script>
 </body>
